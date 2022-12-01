@@ -57,6 +57,7 @@ Most of the students were indifferent to being evaluated,
 
 ```{r}
 #| include: true
-imps
+imps %>% 
+  as_gt()
 ```
 
