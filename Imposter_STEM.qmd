@@ -53,7 +53,7 @@ imps <- dset %>%
   tbl_summary()
 ```
 
-Most of the students were indifferent to being evaluated
+Most of the students were indifferent to being evaluated,
 
 ```{r}
 #| include: true
