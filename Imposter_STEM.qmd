@@ -1,0 +1,62 @@
+---
+title: "Imposter syndrome"
+author: "Henrietta A. Sackey"
+format: 
+     html:
+       toc: true
+       toc-depth: 2
+       number-sections: true
+       number-offset: 3
+       toc-location: left
+       fontsize: "14"
+       include: false
+       echo: false
+       fig-cap-location: bottom
+       tbl-cap-location: top
+       author: Henrietta Addai
+       self-contained: true
+
+---
+
+```{r}
+library(gtsummary)
+library(ggpubr)
+library(tidyverse)
+dset <- read_rds("herty.rds")
+```
+
+# Chapter Four - Results
+
+## Demographic characteristics
+
+```{r}
+dems <- dset %>% 
+  select(age:year) %>% 
+  tbl_summary()
+```
+
+Most of the respondents were aged between 15 to 20 [`r inline_text(dems, variable = "age", level = "15-20")`] followed by those aged 21-25 [`r inline_text(dems, variable = "age", level = "21-25")`]. Only `r inline_text(dems, variable = "age", level = "15-20")` were 26 or more years old at the time of data collection. The vast majority of the students were single [`r inline_text(dems, variable = "marital", level = "Single")`] with only `r inline_text(dems, variable = "marital", level = "Married")` being married. A lot of the student, `r inline_text(dems, variable = "area", level = "Science")`, identified as pursuing a pure science program (such as chemistry or biology). The remaining student pursued Engineering (`r inline_text(dems, variable = "area", level = "Enginering")`), Mathematics (`r inline_text(dems, variable = "area", level = "Mathematics")`) and Technology (`r inline_text(dems, variable = "area", level = "Technology")`). Of the total respondents, `r inline_text(dems, variable = "year", level = 1)` were in first year, `r inline_text(dems, variable = "year", level = 2)` were in second year, `r inline_text(dems, variable = "year", level = 3)` were in third year, `r inline_text(dems, variable = "year", level = 4)` were in their fourth year and `r inline_text(dems, variable = "year", level = 5)` were in their fifth year or higher.
+
+```{r}
+#| label: tbl-dem
+#| include: true
+#| tbl-cap: Demographic characteristics of respondents 
+dems %>% 
+  as_gt()
+```
+
+## Imposter phenomenon
+
+```{r}
+imps <- dset %>% 
+  select(eval: study_unable) %>% 
+  tbl_summary()
+```
+
+Most of the students were indifferent to being evaluated
+
+```{r}
+#| include: true
+imps
+```
+
