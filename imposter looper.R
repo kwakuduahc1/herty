@@ -32,3 +32,7 @@ for (c in imps_cols) {
       )
     )
 }
+
+impd %>% 
+  group_by(area) %>% 
+  summarise(score = mean(imp_score), n = n())
