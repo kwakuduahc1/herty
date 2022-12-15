@@ -74,12 +74,14 @@ impd <- dset %>%
   ) %>% 
   select(age:year, imp_score)
 
+
 impmod <- impd %>% 
   tbl_uvregression(method = glm, y = imp_score)
   
 ```
+@tbl-imp presents the results of the univariate linear regression models showing the association between the demographic characteristics of the respondents and the feeling of impostor syndrome. Compared to respondents aged 15 to 20 years, those between 21 to 25 had `r inline_text(impmod, variable = age, level = 2)` lower impostor score whereas those aged 26 years or above had `r inline_text(impmod, variable = age, level = 3)` higher impostor score. However, the differences were not statistically significant. Females students in the areas of Mathematics and Technology had a higher feeling of impostor syndrome [`r inline_text(impmod, variable = area, level = "Mathematics")` and `r inline_text(impmod, variable = area, level = "Technology")` respectively] compared to those in engineering and the mean differences were statistically significant. Those in science had a mean increase of `r inline_text(impmod, variable = area, level = "Science")` in the impostor score but this was not statistically significant. Additionally, respondents in third year had significantly higher impostor score compared with those in first year `r inline_text(impmod, variable = year, level = "Third Year")`.
 
-@tbl-imp is a univariate linear regression model that shows the association between the demographic characteristics of the respondents and the feeling of impostor syndrome. The mean difference in scores of imposterism between respondents aged between 21 to 25 and 15 to 20 was `r inline_text(impmod, variable = age, level = 2)` and those 26 or more and those 15 to 20 was `r inline_text(impmod, variable = age, level = 3)`. None of the differences were statistically siginificant. Females students in mathematics and science had a higher feeling of impostor syndrome compared to those in engineering and the differences in mean were statistically significant. Those in science had a mean increase of `r inline_text(impmod, variable = area, level = "Science")` in the impostor score but it was not statistically significant. 
+
 ```{r}
 #| label: tbl-imp
 #| tbl-cap: Univariate regression between demographic characteristics and the feeling of imposter syndrome
