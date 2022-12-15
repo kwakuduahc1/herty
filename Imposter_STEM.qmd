@@ -11,6 +11,7 @@ format:
        fontsize: "14"
        include: false
        echo: false
+       warning: false
        fig-cap-location: bottom
        tbl-cap-location: top
        author: Henrietta Addai
@@ -21,7 +22,7 @@ format:
 ```{r}
 library(gtsummary)
 library(ggpubr)
-library(tidyverse)
+library(tidyverse, warn.conflicts = F, quietly = T)
 dset <- read_rds("herty.rds")
 ```
 
@@ -35,7 +36,7 @@ dems <- dset %>%
   tbl_summary()
 ```
 
-Most of the respondents were aged between 15 to 20 [`r inline_text(dems, variable = "age", level = "15-20")`] (@tbl-dem) followed by those aged 21-25 [`r inline_text(dems, variable = "age", level = "21-25")`]. Only `r inline_text(dems, variable = "age", level = "26 or more")` were 26 or more years old at the time of data collection. The vast majority of the students were single [`r inline_text(dems, variable = "marital", level = "Single")`] with only `r inline_text(dems, variable = "marital", level = "Married")` being married. A lot of the student, `r inline_text(dems, variable = "area", level = "Science")`, identified as pursuing a pure science program (such as chemistry or biology). The remaining student pursued Engineering (`r inline_text(dems, variable = "area", level = "Enginering")`), Mathematics (`r inline_text(dems, variable = "area", level = "Mathematics")`) and Technology (`r inline_text(dems, variable = "area", level = "Technology")`). Of the total respondents, `r inline_text(dems, variable = "year", level = 1)` were in first year, `r inline_text(dems, variable = "year", level = 2)` were in second year, `r inline_text(dems, variable = "year", level = 3)` were in third year, `r inline_text(dems, variable = "year", level = 4)` were in their fourth year and `r inline_text(dems, variable = "year", level = 5)` were in their fifth year or higher.
+Most of the respondents were aged between 15 to 20 [`r inline_text(dems, variable = "age", level = "15-20")`] (@tbl-dem) followed by those aged 21-25 [`r inline_text(dems, variable = "age", level = "21-25")`]. Only `r inline_text(dems, variable = "age", level = "26 or more")` were 26 or more years old at the time of data collection. The vast majority of the students were single [`r inline_text(dems, variable = "marital", level = "Single")`] with only `r inline_text(dems, variable = "marital", level = "Married")` being married. Most, `r inline_text(dems, variable = "area", level = 1)`, of the students were in a Mathematics and Science program with fewer, `r inline_text(dems, variable = "area", level = 2)`, pursuing a course in Engineering and Technology. Of the total respondents, `r inline_text(dems, variable = "year", level = 1)` were in first year, `r inline_text(dems, variable = "year", level = 2)` were in second year, `r inline_text(dems, variable = "year", level = 3)` were in third year, `r inline_text(dems, variable = "year", level = 4)` were in their fourth year or higher
 
 ```{r}
 #| label: tbl-dem
@@ -53,7 +54,7 @@ imps <- dset %>%
   tbl_summary()
 ```
 
-Most, `r inline_text(imps, variable = "eval", level = 1)`) (@tbl-impo), of the students expressed indifference to being evaluated but others but `r inline_text(imps, variable = "eval", level = 2)` did not avoid being evaluated by others. However, `r inline_text(imps, variable = "eval", level = 3)` of the students avoided being evaluated by others. Few students, `r inline_text(imps, variable = "do_prog", level = 1)` undertook projects or tasks on their own as well as they would have preferred the project/task being done. The majority of the students, however, indicated they undertook projects in the manner they wished. About a third, `r inline_text(imps, variable = "do_prog", level = 3)`, of the students did agree that they were not able to undertake projects as well as they would have liked it. A few, `r inline_text(imps, variable = "impress", level = 1)`, students were indifferent to creating the impression that they were more competent than they actually were. This was followed by a slightly higher number of STEM students, `r inline_text(imps, variable = "impress", level = 2)`, that indicated they cannot create the impression that they could do better than they actually do, but more than half of the students, `r inline_text(imps, variable = "impress", level = 3)` could create an impressions of higher competency that they actually are. Very few students [`r inline_text(imps, variable = "afraid", level = 1)`] were indifferent to being found out they lacked some knowledge or competencies, `r inline_text(imps, variable = "afraid", level = 2)` did not express any worry, but `r inline_text(imps, variable = "afraid", level = 3)` had feelings of being discovered to know less than they do. A few students [`r inline_text(imps, variable = "luck", level = 1)`] were indifferent to suggestions that their achievements were due to luck but almost half of the responded (`r inline_text(imps, variable = "luck", level = 2)`) did not think their achievements were due to luck. About a third [`r inline_text(imps, variable = "luck", level = 3)`] of the responded did think their achievements were simply to luck. A few students were once again indifferent to the suggestion that important people close to them would find out they were less competent than they actually are while about half of the respondents did not engage in such thoughts. A little over a third of the respondents were concerned important people close to them would find out the respondents were less competent than they were perceived to be. Some, `r inline_text(imps, variable = "study_unable", level = 1)` of the students agreed they thought they could not complete their current program they were enrolled in but almost half of the students [`r inline_text(imps, variable = "study_unable", level = 2)`] thought they would be able to complete the program. However, `r inline_text(imps, variable = "study_unable", level = 3)` of the female STEM students harbored ideas they may not be able to complete their current program they were enrolled in.
+Most, `r inline_text(imps, variable = "eval", level = 1)` (@tbl-impo), of the students expressed indifference to being evaluated but others but `r inline_text(imps, variable = "eval", level = 2)` did not avoid being evaluated by others. However, `r inline_text(imps, variable = "eval", level = 3)` of the students avoided being evaluated by others. Few students, `r inline_text(imps, variable = "do_prog", level = 1)` undertook projects or tasks on their own as well as they would have preferred the project/task being done. The majority of the students, however, indicated they undertook projects in the manner they wished. About a third, `r inline_text(imps, variable = "do_prog", level = 3)`, of the students did agree that they were not able to undertake projects as well as they would have liked it. A few, `r inline_text(imps, variable = "impress", level = 1)`, students were indifferent to creating the impression that they were more competent than they actually were. This was followed by a slightly higher number of STEM students, `r inline_text(imps, variable = "impress", level = 2)`, that indicated they cannot create the impression that they could do better than they actually do, but more than half of the students, `r inline_text(imps, variable = "impress", level = 3)` could create an impressions of higher competency that they actually are. Very few students [`r inline_text(imps, variable = "afraid", level = 1)`] were indifferent to being found out they lacked some knowledge or competencies, `r inline_text(imps, variable = "afraid", level = 2)` did not express any worry, but `r inline_text(imps, variable = "afraid", level = 3)` had feelings of being discovered to know less than they do. A few students [`r inline_text(imps, variable = "luck", level = 1)`] were indifferent to suggestions that their achievements were due to luck but almost half of the responded (`r inline_text(imps, variable = "luck", level = 2)`) did not think their achievements were due to luck. About a third [`r inline_text(imps, variable = "luck", level = 3)`] of the responded did think their achievements were simply to luck. A few students were once again indifferent to the suggestion that important people close to them would find out they were less competent than they actually are while about half of the respondents did not engage in such thoughts. A little over a third of the respondents were concerned important people close to them would find out the respondents were less competent than they were perceived to be. Some, `r inline_text(imps, variable = "study_unable", level = 1)` of the students agreed they thought they could not complete their current program they were enrolled in but almost half of the students [`r inline_text(imps, variable = "study_unable", level = 2)`] thought they would be able to complete the program. However, `r inline_text(imps, variable = "study_unable", level = 3)` of the female STEM students harbored ideas they may not be able to complete their current program they were enrolled in.
 
 ```{r}
 #| label: tbl-impo
@@ -64,26 +65,61 @@ imps %>%
   as_gt()
 ```
 
-### Statistical analysis
+## Summary of imposterism
 
 ```{r}
-impd <- dset %>% 
-  mutate(
-    across(eval: study_unable, as.numeric),
-    imp_score = (eval + do_prog + impress + afraid + luck + found + study_unable)/35*100
-  ) %>% 
-  select(age:year, imp_score)
+sm <- impd %>% 
+  select(imp_score) %>% 
+  tbl_summary()
+```
 
+From @fig-imp-score, the median (IQR) imposterism score was `r inline_text(sm, variable = imp_score)` suggesting imposterism was frequent among the students.The median score of the students is indicated with the straight line.
+```{r}
+#| label: fig-imp-score
+#| include: true
+#| fig.cap: Histogram of imposterism among students
+#| cap-location: top
+impd %>% 
+  mutate(imp_score = imp_score/100) %>% 
+  gghistogram(
+    x = "imp_score",
+    xlab = "Composite imposter score",
+    ylab = "Number of students",
+    bins = 12,
+    fill = "#6cc493",
+    add = "median",
+    title = "Composite imposter score of students",
+    caption = "Higher score indicate a higher feeling of imposterism",
+    subtitle = paste("Median (IQR)=", inline_text(sm, variable = imp_score))
+  ) + 
+  scale_x_continuous(labels = scales::percent)
+
+```
+
+
+### Statistical analysis
+
+#### Association between demographic variables and the composite score of imposterism
+```{r}
 impmod <- impd %>% 
-  tbl_uvregression(method = glm, y = imp_score)
+  tbl_uvregression(method = glm, y = imp_score, hide_n = T)
   
 ```
 
-@tbl-imp is a univariate linear regression model that shows the association between the demographic characteristics of the respondents and the feeling of impostor syndrome. The mean difference in scores of imposterism between respondents aged between 21 to 25 and 15 to 20 was `r inline_text(impmod, variable = age, level = 2)` and those 26 or more and those 15 to 20 was `r inline_text(impmod, variable = age, level = 3)`. None of the differences were statistically siginificant. Females students in mathematics and science had a higher feeling of impostor syndrome compared to those in engineering and the differences in mean were statistically significant. Those in science had a mean increase of `r inline_text(impmod, variable = area, level = "Science")` in the impostor score but it was not statistically significant. 
+@tbl-imp shows the shows the association between the demographic characteristics of the respondents and the feeling of impostor syndrome. The mean difference in the score of imposterism between respondents aged between 21 to 25 and 15 to 20 was `r inline_text(impmod, variable = age, level = 2)` and those 26 or more and those 15 to 20 was `r inline_text(impmod, variable = age, level = 3)`. However, none of the differences were statistically significant. On the average, students pursuing a mathematics or science program had a higher score, `r inline_text(impmod, variable = area, level = 2)`, compared to those pursuing a program in engineering or technology but this was not statistically significant. This means students pursuing mathematics or science a higher feeling of imposterism.
 ```{r}
 #| label: tbl-imp
 #| tbl-cap: Univariate regression between demographic characteristics and the feeling of imposter syndrome
 #| include: true
 impmod %>% as_gt()
+```
+
+#### Linear regression showing the association between composite score of imposterism and predictor variables.
+
+```{r}
+glm(formula = imp_score ~ age * year, data = impd, family = binomial()) %>% 
+  tbl_regression(
+    intercept = T
+  )
 ```
 

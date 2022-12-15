@@ -11,14 +11,21 @@ dset <- readxl::read_excel("Questionnaire responses.xlsx",
                                  "numeric", "numeric", "numeric", 
                                  "numeric", "numeric", "numeric", 
                                  "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric"))
+                                 "numeric", "numeric")) %>% 
+  mutate(
+    imp_score = (eval + do_prog + impress + afraid + luck + found + study_unable)/35*100,
+    pers_score = (decision + cont_prog + complete + exper)/20*100,
+    eff_score = (valuable + pass_exam + prod_change + ans_quest + particip + take_notes + satis)/49 * 100
+  )
 
 
 dset <- dset %>% 
   mutate(
     year = as.factor(year),
     age = fct_collapse(age, "26 or more" = c("26-30", "31-35", "Above 35")),
-    year = fct_relevel(year, "First Year", "Second Year", "Third Year", "Fourth Year"),
+    area = fct_collapse(area, "Mathematics and Science" = c("Mathematics", "Science"), "Engineering and Technology" = c("Enginering", "Technology")),
+    year = fct_collapse(year, "Fourth year or more" = c("Fifth Year and above", "Fourth Year")),
+    year = fct_relevel(year, "First Year", "Second Year", "Third Year"),
     across(eval:study_unable, factor, labels = c("Not very true", "Not true", "Indifferent", "True", "Very true"), levels = 1:5),
     across(eval:study_unable, fct_collapse, "False" = c("Not very true", "Not true"), "True" = c("True", "Very true")),
     across(eval:study_unable, fct_relevel, "Indifferent", "False", "True"),
@@ -32,17 +39,6 @@ dset <- dset %>%
 
 
 labelled::var_label(dset) <- dict$label
-# dset %>% 
-#   select(eval: study_unable) %>% 
-#   tbl_summary()
-# 
-# dset %>% 
-#   select(decision:exper) %>%
-# tbl_summary()
-# 
-# dset %>% 
-#   select(valuable:satis) %>% 
-#   tbl_summary()
 
 dset %>% 
   select(-programme) %>% 
