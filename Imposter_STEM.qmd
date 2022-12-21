@@ -68,7 +68,7 @@ imps %>%
 ## Summary of imposterism
 
 ```{r}
-sm <- impd %>% 
+sm <- dset %>% 
   select(imp_score) %>% 
   tbl_summary()
 ```
@@ -101,7 +101,8 @@ impd %>%
 
 #### Association between demographic variables and the composite score of imposterism
 ```{r}
-impmod <- impd %>% 
+impmod <- dset %>% 
+  select(imp_score, age:year) %>% 
   tbl_uvregression(method = glm, y = imp_score, hide_n = T)
   
 ```
@@ -116,7 +117,7 @@ impmod %>% as_gt()
 #### Linear regression showing the association between composite score of imposterism and predictor variables.
 
 ```{r}
-glm(formula = imp_score ~ age * year, data = impd, family = binomial()) %>% 
+glm(formula = imp_score ~ age * year, data = dset, family = gaussian(link = "identity")) %>% 
   tbl_regression(
     intercept = T
   )
