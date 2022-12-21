@@ -36,7 +36,7 @@ dems <- dset %>%
   tbl_summary()
 ```
 
-Most of the respondents were aged between 15 to 20 [`r inline_text(dems, variable = "age", level = "15-20")`] (@tbl-dem) followed by those aged 21-25 [`r inline_text(dems, variable = "age", level = "21-25")`]. Only `r inline_text(dems, variable = "age", level = "26 or more")` were 26 or more years old at the time of data collection. The majority of the students were single [`r inline_text(dems, variable = "marital", level = "Single")`] with only `r inline_text(dems, variable = "marital", level = "Married")` being married. Most, `r inline_text(dems, variable = "area", level = 1)`, of the students were in a Mathematics and Science program with fewer, `r inline_text(dems, variable = "area", level = 2)`, pursuing a program in Engineering and Technology. Of the total respondents, `r inline_text(dems, variable = "year", level = 1)` were in first year, `r inline_text(dems, variable = "year", level = 2)` were in second year, `r inline_text(dems, variable = "year", level = 3)` were in third year, `r inline_text(dems, variable = "year", level = 4)` were in their fourth year or higher
+Most of the respondents were aged between 15 to 20 [`r inline_text(dems, variable = "age", level = "15-20")`] (@tbl-dem) followed by those aged 21-25 [`r inline_text(dems, variable = "age", level = "21-25")`]. Only `r inline_text(dems, variable = "age", level = "26 or more")` were 26 or more years old at the time of data collection. The majority of the students were single [`r inline_text(dems, variable = "marital", level = "Single")`] with only `r inline_text(dems, variable = "marital", level = "Married")` being married. Most, `r inline_text(dems, variable = "area", level = 1)`, of the students were in a Mathematics and Science program with fewer, `r inline_text(dems, variable = "area", level = 2)`, pursuing a program in Engineering and Technology. Of the total respondents, `r inline_text(dems, variable = "year", level = 1)` were in first year, `r inline_text(dems, variable = "year", level = 2)` were in second year, `r inline_text(dems, variable = "year", level = 3)` were in third year, `r inline_text(dems, variable = "year", level = 4)` were in their fourth year or higher.
 
 ```{r}
 #| label: tbl-dem
@@ -60,7 +60,6 @@ imps <- dset %>%
 #| label: tbl-impo
 #| include: true
 #| tbl-cap: Experience of imposter phenomenon
-
 imps %>% 
   as_gt()
 ```
@@ -68,7 +67,7 @@ imps %>%
 ## Summary of imposterism
 
 ```{r}
-sm <- impd %>% 
+sm <- dset %>% 
   select(imp_score) %>% 
   tbl_summary()
 ```
@@ -79,7 +78,7 @@ From @fig-imp-score, the median (IQR) imposterism score was `r inline_text(sm, v
 #| include: true
 #| fig.cap: Histogram of imposterism among students
 #| cap-location: top
-impd %>% 
+dset %>% 
   mutate(imp_score = imp_score/100) %>% 
   gghistogram(
     x = "imp_score",
@@ -101,11 +100,12 @@ impd %>%
 
 #### Association between demographic variables and the composite score of imposterism
 ```{r}
-impmod <- impd %>% 
+impmod <- dset %>% 
+  select(eval:study_unable, imp_score) %>% 
   tbl_uvregression(method = glm, y = imp_score, hide_n = T)
   
 ```
-@tbl-imp presents the results of the univariate linear regression models showing the association between the demographic characteristics of the respondents and the feeling of impostor syndrome. Compared to respondents aged 15 to 20 years, those between 21 to 25 had `r inline_text(impmod, variable = age, level = 2)` lower impostor score whereas those aged 26 years or above had `r inline_text(impmod, variable = age, level = 3)` higher impostor score. However, the differences were not statistically significant. Females students in the areas of Mathematics and Technology had a higher feeling of impostor syndrome [`r inline_text(impmod, variable = area, level = "Mathematics")` and `r inline_text(impmod, variable = area, level = "Technology")` respectively] compared to those in engineering and the mean differences were statistically significant. Those in science had a mean increase of `r inline_text(impmod, variable = area, level = "Science")` in the impostor score but this was not statistically significant. Additionally, respondents in third year had significantly higher impostor score compared with those in first year `r inline_text(impmod, variable = year, level = "Third Year")`.
+<!-- @tbl-imp presents the results of the univariate linear regression models showing the association between the demographic characteristics of the respondents and the feeling of impostor syndrome. Compared to respondents aged 15 to 20 years, those between 21 to 25 had `r inline_text(impmod, variable = age, level = 2)` lower impostor score whereas those aged 26 years or above had `r inline_text(impmod, variable = age, level = 3)` higher impostor score. However, the differences were not statistically significant. Females students in the areas of Mathematics and Technology had a higher feeling of impostor syndrome [`r inline_text(impmod, variable = area, level = "Mathematics")` and `r inline_text(impmod, variable = area, level = "Technology")` respectively] compared to those in engineering and the mean differences were statistically significant. Those in science had a mean increase of `r inline_text(impmod, variable = area, level = "Science")` in the impostor score but this was not statistically significant. Additionally, respondents in third year had significantly higher impostor score compared with those in first year `r inline_text(impmod, variable = year, level = "Third Year")`. -->
 ```{r}
 #| label: tbl-imp
 #| tbl-cap: Univariate regression between demographic characteristics and the feeling of imposter syndrome
@@ -116,7 +116,7 @@ impmod %>% as_gt()
 #### Linear regression showing the association between composite score of imposterism and predictor variables.
 
 ```{r}
-glm(formula = imp_score ~ age * year, data = impd, family = binomial()) %>% 
+glm(formula = imp_score ~ age + area + year, data = dset) %>% 
   tbl_regression(
     intercept = T
   )
